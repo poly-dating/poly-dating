@@ -5,7 +5,7 @@ import com.polydating.character.Character;
 import com.polydating.choice.Choice;
 import com.polydating.choice.activity.*;
 import com.polydating.choice.food.*;
-import com.polydating.choice.Hobby.*;
+import com.polydating.choice.hobby.*;
 import com.polydating.choice.home.*;
 import com.polydating.choice.travel.*;
 import com.polydating.event.*;
