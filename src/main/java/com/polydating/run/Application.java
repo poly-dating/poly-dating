@@ -33,17 +33,14 @@ public class Application {
             System.out.println("=== 💘 연애다항식 ===");
             System.out.println("1. 🏋️ 헬스남  2. 🎮 겜돌이  3. 😎 외향맨  4. 🌙 내향맨");
             System.out.print("상대를 선택하세요: ");
-            int pick = sc.nextInt();
+            int pick = getIntInput(sc, 1, 4);
 
             character = switch (pick) {
                 case 1 -> { GymBro c = new GymBro(); c.setName("GymBro"); yield c; }
                 case 2 -> { Gamer c = new Gamer(); c.setName("Gamer"); yield c; }
                 case 3 -> { Extrovert c = new Extrovert(); c.setName("Extrovert"); yield c; }
                 case 4 -> { Introvert c = new Introvert(); c.setName("Introvert"); yield c; }
-                default -> {
-                    System.out.println("잘못 선택했어요! 다시 선택해주세요.");
-                    yield null;
-                }
+                default -> throw new IllegalStateException("범위 밖 입력");
             };
         }
 
@@ -74,7 +71,7 @@ public class Application {
             for (int i = 0; i < categories.size(); i++) {
                 System.out.println((i + 1) + ". " + categories.get(i));
             }
-            String selectedCategory = categories.get(sc.nextInt() - 1);
+            String selectedCategory = categories.get(getIntInput(sc, 1, categories.size()) - 1);
 
             List<Choice> available = choicesByCategory.get(selectedCategory).stream()
                     .filter(c -> !usedChoices.contains(c.getTitle()))
@@ -89,14 +86,49 @@ public class Application {
             for (int i = 0; i < available.size(); i++) {
                 System.out.println((i + 1) + ". " + available.get(i).getTitle());
             }
-            Choice selected = available.get(sc.nextInt() - 1);
+            Choice selected = available.get(getIntInput(sc, 1, available.size()) - 1);
             usedChoices.add(selected.getTitle());   // 사용 처리
 
             selected.apply(character, state);
             character.react(selected, state);
             state.setConversationCount(state.getConversationCount() + 1);
+
+            // 2-4. 엔딩 체크
+            String ending = checkEnding(state);
+            if (ending != null) {
+                System.out.println("\n" + ending);
+                sc.close();
+                return;
+            }
         }
+        if (state.getFavorability() >= 60) {
+            System.out.println("\n🤝 친구 엔딩! 좋은 친구가 됐어요.");
+        } else {
+            System.out.println("\n⏱ TIME OUT! 기회를 다 날렸네요...");
+        }
+        sc.close();
+    }
 
+    // 선택지 입력
+    private static int getIntInput(Scanner sc, int min, int max) {
+        while (true) {
+            try {
+                int input = sc.nextInt();
+                if (input >= min && input <= max) {
+                    return input;
+                }
+                System.out.println(min + "~" + max + " 사이 숫자를 입력해주세요!");
+            } catch (InputMismatchException e) {
+                System.out.println("숫자를 입력해주세요!");
+                sc.nextLine();
+            }
+        }
+    }
 
+    // 엔딩 체크
+    private static String checkEnding(GameState state) {
+        if (state.getAnnoyance() >= 70)    return "💔 상대방이 당신을 차단했습니다.";
+        if (state.getFavorability() >= 90) return "💘 연인 엔딩!";
+        return null;
     }
 }
