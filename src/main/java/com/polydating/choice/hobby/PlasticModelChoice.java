@@ -1,4 +1,4 @@
-package com.polydating.choice.Hobby;
+package com.polydating.choice.hobby;
 
 import com.polydating.character.Character;
 import com.polydating.choice.Choice;
