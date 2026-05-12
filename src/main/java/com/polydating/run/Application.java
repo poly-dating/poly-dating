@@ -34,6 +34,12 @@ public class Application {
         eventList.add(new SilenceEvent());
         eventList.add(new SurpriseFriendEvent());
         eventList.add(new TableMannersEvent());
+        eventList.add(new FallingEvent());
+        eventList.add(new PhoneCallEvent());
+        eventList.add(new PuppyEvent());
+        eventList.add(new SunsetEvent());
+        eventList.add(new BuskingEvent());
+
         Collections.shuffle(eventList);
 
         // 1. 캐릭터 선택
