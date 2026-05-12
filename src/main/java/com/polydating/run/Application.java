@@ -21,11 +21,20 @@ public class Application {
         Map<String, List<Choice>> choicesByCategory = new LinkedHashMap<>();
         Set<String> usedChoices = new HashSet<>();
 
+        List<Event> eventList = new ArrayList<>();
+
         choicesByCategory.put("🏃 액티비티", List.of(new BungeeJumpingChoice(), new HanRiverBoatChoice(), new ClimbingChoice()));
         choicesByCategory.put("🍔 음식", List.of(new HotPlaceBurgerChoice(), new MeatBuffetChoice(), new QuietOmakaseChoice()));
         choicesByCategory.put("🎯 취미", List.of(new CoinKaraokeChoice(), new EscapeRoomChoice(), new PlasticModelChoice()));
         choicesByCategory.put("🏠 집 데이트", List.of(new CoupleGameChoice(), new DeliveryFoodChoice(), new HorrorMovieChoice()));
         choicesByCategory.put("✈️ 여행", List.of(new JejuCyclingChoice(), new OceanTripChoice(), new StaycationChoice()));
+
+        eventList.add(new PaymentEvent());
+        eventList.add(new RainyEvent());
+        eventList.add(new SilenceEvent());
+        eventList.add(new SurpriseFriendEvent());
+        eventList.add(new TableMannersEvent());
+        Collections.shuffle(eventList);
 
         // 1. 캐릭터 선택
         Character character = null;
@@ -60,7 +69,23 @@ public class Application {
 
 
         // 2. 게임 루프 (최대 10턴)
+        boolean isEvent = false;
         while (state.getConversationCount() < 10) {
+
+            // 이벤트 발생
+            Random random = new Random();
+            if (Math.random() < 0.3 && !eventList.isEmpty() && !isEvent) {
+                System.out.println();
+                int randomIndex = random.nextInt(eventList.size());
+
+                Event selectedEvent = eventList.get(randomIndex);
+
+                selectedEvent.apply(character, state, sc);
+                eventList.remove(randomIndex);
+                System.out.println();
+                isEvent = true;
+                continue;
+            }
 
             // 2-1. 현재 상태 출력
             System.out.println("=== " + (state.getConversationCount() + 1) + "턴 ===");
@@ -92,6 +117,7 @@ public class Application {
             selected.apply(character, state);
             character.react(selected, state);
             state.setConversationCount(state.getConversationCount() + 1);
+            isEvent = false;
 
             // 2-4. 엔딩 체크
             String ending = checkEnding(state, character);

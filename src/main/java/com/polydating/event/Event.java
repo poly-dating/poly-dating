@@ -8,5 +8,5 @@ import java.util.Scanner;
 public interface Event {
     String getTitle();
 
-    void apply(Character target, GameState gameState, Scanner scanner);
+    void apply(Character target, GameState state, Scanner scanner);
 }
