@@ -14,13 +14,13 @@ public class CoupleGameChoice  implements Choice {
     public void apply(Character target, GameState state) {
         System.out.println(">>> 집데이트: 롤 듀오 돌리기 가즈앗");
         if (target.getName().equals("Gamer")) {
-            System.out.println(target.getName() + ": 제 주포지션 원딜인데, 서포터 해주시면 하드캐리 해드릴게요!");
+            System.out.println(target.getNickname() + ": 제 주포지션 원딜인데, 서포터 해주시면 하드캐리 해드릴게요!");
             state.setFavorability(state.getFavorability() + 25);
         } else if (target.getName().equals("Introvert")) {
-            System.out.println(target.getName() + ": 사람이 너무 많아서 조금 기가 빨려요... (PC방 이동 시)");
+            System.out.println(target.getNickname() + ": 사람이 너무 많아서 조금 기가 빨려요... (PC방 이동 시)");
             state.setAnnoyance(state.getAnnoyance() + 10);
         } else {
-            System.out.println(target.getName() + ": 게임은 잘 모르지만 가르쳐 주시면 열심히 해볼게요!");
+            System.out.println(target.getNickname() + ": 게임은 잘 모르지만 가르쳐 주시면 열심히 해볼게요!");
             state.setFavorability(state.getFavorability() + 5);
         }
     }

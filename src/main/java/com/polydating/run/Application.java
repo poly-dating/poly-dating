@@ -36,15 +36,15 @@ public class Application {
             int pick = getIntInput(sc, 1, 4);
 
             character = switch (pick) {
-                case 1 -> { GymBro c = new GymBro(); c.setName("GymBro"); yield c; }
-                case 2 -> { Gamer c = new Gamer(); c.setName("Gamer"); yield c; }
-                case 3 -> { Extrovert c = new Extrovert(); c.setName("Extrovert"); yield c; }
-                case 4 -> { Introvert c = new Introvert(); c.setName("Introvert"); yield c; }
+                case 1 -> { GymBro c = new GymBro(); c.setName("GymBro"); c.setNickname("🏋️ 헬스남");yield c; }
+                case 2 -> { Gamer c = new Gamer(); c.setName("Gamer"); c.setNickname("🎮 겜돌이"); yield c; }
+                case 3 -> { Extrovert c = new Extrovert(); c.setName("Extrovert"); c.setNickname("😎 외향맨"); yield c; }
+                case 4 -> { Introvert c = new Introvert(); c.setName("Introvert"); c.setNickname("🌙 내향맨"); yield c; }
                 default -> throw new IllegalStateException("범위 밖 입력");
             };
         }
 
-        System.out.println(character.getName() + "와(과) 데이트를 시작합니다!");
+        System.out.println(character.getNickname() + "와(과) 데이트를 시작합니다!");
         System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         System.out.println("앞으로 당신에게 주어진 데이트 기회는 단 10번.");
         System.out.println("짧다면 짧고, 길다면 긴 이 시간 동안");
@@ -94,7 +94,7 @@ public class Application {
             state.setConversationCount(state.getConversationCount() + 1);
 
             // 2-4. 엔딩 체크
-            String ending = checkEnding(state);
+            String ending = checkEnding(state, character);
             if (ending != null) {
                 System.out.println("\n" + ending);
                 sc.close();
@@ -102,9 +102,41 @@ public class Application {
             }
         }
         if (state.getFavorability() >= 60) {
-            System.out.println("\n🤝 친구 엔딩! 좋은 친구가 됐어요.");
+            System.out.println("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            System.out.println("🤝 친구 엔딩");
+            System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+            System.out.println(character.getNickname() + "와(과)의 관계는");
+            System.out.println("연인까지 이어지진 않았지만,");
+            System.out.println("서로를 편하게 웃을 수 있는 특별한 친구가 되었습니다.");
+            System.out.println();
+
+            System.out.println(character.getNickname() + "은(는) 당신과 함께한 시간을");
+            System.out.println("꽤 즐거운 추억으로 기억할 것 같습니다.");
+            System.out.println();
+
+            System.out.println("\"다음엔 그냥 편하게 놀러 나오자!\"");
+            System.out.println("- " + character.getNickname());
+
+            System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
         } else {
-            System.out.println("\n⏱ TIME OUT! 기회를 다 날렸네요...");
+            System.out.println("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            System.out.println("⏱ TIME OUT");
+            System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+            System.out.println("10번의 데이트 기회가 모두 끝났습니다.");
+            System.out.println();
+
+            System.out.println(character.getNickname() + "의 마음은");
+            System.out.println("끝내 당신에게 완전히 열리지 않았습니다.");
+            System.out.println();
+
+            System.out.println("조금 더 용기냈더라면,");
+            System.out.println("조금 더 솔직했더라면");
+            System.out.println("결말은 달라졌을지도 모릅니다.");
+
+            System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         }
         sc.close();
     }
@@ -126,9 +158,54 @@ public class Application {
     }
 
     // 엔딩 체크
-    private static String checkEnding(GameState state) {
-        if (state.getAnnoyance() >= 70)    return "💔 상대방이 당신을 차단했습니다.";
-        if (state.getFavorability() >= 90) return "💘 연인 엔딩!";
+    private static String checkEnding(GameState state, Character character) {
+        if (state.getAnnoyance() >= 70) {
+
+            return """
+                
+                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                💔 차단 엔딩
+                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                %s은(는) 결국 당신에게 마음의 문을 닫았습니다.
+                
+                반복된 실수와 어긋난 선택들.
+                장난처럼 넘겼던 순간들은
+                상대에겐 상처로 남아버렸습니다.
+                
+                "%s : ...더이상의 만남은 무의미한 것 같네요.
+                앞으로는 연락하지 말아주세요."
+                
+                연락창은 조용히 닫혔고,
+                더 이상 답장은 오지 않았습니다.
+                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                """.formatted(character.getNickname(),
+                    character.getNickname());
+        }
+        if (state.getFavorability() >= 90) {
+
+            return """
+                
+                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                💘 연인 엔딩
+                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                수많은 선택 끝에,
+                당신은 결국 %s의 마음을 사로잡았습니다.
+                
+                함께 웃고,
+                함께 설레고,
+                서로를 조금씩 알아가던 시간들.
+                
+                그 모든 순간은
+                두 사람을 특별한 관계로 이어주었습니다.
+                
+                "%s : 앞으로도... 내 옆에 있어줄래요?"
+                
+                그렇게 두 사람의 이야기는
+                새로운 시작을 맞이하게 됩니다.
+                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                """.formatted(character.getNickname(),
+                    character.getNickname());
+        }
         return null;
     }
 }
