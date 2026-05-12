@@ -23,7 +23,7 @@ public class BuskingEvent implements Event {
         System.out.println("3. 신나서 리듬 타면서 박수치고 분위기를 즐긴다.");
         System.out.print("선택 : ");
 
-        int choice = scanner.nextInt();
+        int choice = getValidInput(scanner);
         scanner.nextLine();
 
         switch (choice) {

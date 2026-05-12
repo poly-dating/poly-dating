@@ -22,7 +22,7 @@ public class PuppyEvent implements Event {
         System.out.println("3. 별 반응 없이 지나칩니다.");
         System.out.print("어떻게 하시겠습니까? : ");
 
-        int choice = scanner.nextInt();
+        int choice = getValidInput(scanner);
         scanner.nextLine();
 
         switch (choice) {

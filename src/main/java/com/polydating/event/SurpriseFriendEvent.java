@@ -19,7 +19,7 @@ public class SurpriseFriendEvent implements Event {
         System.out.println("3. \"오, 친구분이세요? 같이 합류할까요?\" 라고 제안합니다.");
         System.out.print("어떻게 하시겠습니까? : ");
 
-        int choice = scanner.nextInt();
+        int choice = getValidInput(scanner);
         scanner.nextLine();
 
         switch (choice) {

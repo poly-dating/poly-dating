@@ -19,7 +19,7 @@ public class SilenceEvent implements Event {
         System.out.println("3. 억지로 날씨 얘기를 꺼냅니다.");
         System.out.print("어떻게 하시겠습니까? : ");
 
-        int choice = scanner.nextInt();
+        int choice = getValidInput(scanner);
         scanner.nextLine();
 
         switch (choice) {

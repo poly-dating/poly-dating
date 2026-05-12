@@ -22,7 +22,7 @@ public class PhoneCallEvent implements Event {
         System.out.println("3. 휴대폰을 뒤집어두고 \"오늘은 당신한테만 집중하고 싶어요.\"");
         System.out.print("선택 : ");
 
-        int choice = scanner.nextInt();
+        int choice = getValidInput(scanner);
         scanner.nextLine();
 
         switch (choice) {

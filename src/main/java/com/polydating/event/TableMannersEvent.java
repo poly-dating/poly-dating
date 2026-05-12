@@ -19,7 +19,7 @@ public class TableMannersEvent  implements Event {
         System.out.println("3. \"저 원래 이렇게 먹어요\" 라고 말합니다.");
         System.out.print("어떻게 하시겠습니까? : ");
 
-        int choice = scanner.nextInt();
+        int choice = getValidInput(scanner);
         scanner.nextLine();
 
         switch (choice) {

@@ -20,7 +20,7 @@ public class RainyEvent implements Event {
         System.out.println("3. \"비 맞는 것도 낭만 아닌가요?\" 라고 말합니다.");
         System.out.print("어떻게 하시겠습니까? : ");
 
-        int choice = scanner.nextInt();
+        int choice = getValidInput(scanner);
         scanner.nextLine();
 
         switch (choice) {

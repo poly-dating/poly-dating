@@ -22,7 +22,7 @@ public class SunsetEvent implements Event {
         System.out.println("3. \"잠깐만요, 인스타 사진 찍어드릴까요?\"");
         System.out.print("선택 : ");
 
-        int choice = scanner.nextInt();
+        int choice = getValidInput(scanner);
         scanner.nextLine();
 
         switch (choice) {

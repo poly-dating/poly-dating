@@ -22,7 +22,7 @@ public class FallingEvent implements Event {
         System.out.println("3. 웃음을 터뜨리며 \"조심하세요\" 라고 한다.");
         System.out.print("선택 : ");
 
-        int choice = scanner.nextInt();
+        int choice = getValidInput(scanner);
         scanner.nextLine();
 
         switch (choice) {
