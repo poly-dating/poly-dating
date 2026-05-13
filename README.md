@@ -42,7 +42,6 @@ src/main/java/com/polydating/
 <br/>│   ├── home/          # 주거/공간 관련 선택 로직
 <br/>│   └── travel/        # 여행 관련 선택 로직
 <br/>├── event/             # 게임 내 이벤트 발생 및 시나리오 관리
-<br/>├── out/               # 출력 관련 유틸리티 (UI/UX)
 <br/>├── run/               # 애플리케이션 실행 진입점
 <br/>└── state/             # 게임 상태 및 데이터 유지 관리
 
